@@ -1,0 +1,85 @@
+:root {
+  color-scheme: light dark;
+  font-size: 16px;
+
+  --size-ratio: 1.618; /* Golden ratio */
+  --size-pico: calc(var(--size-nano) / var(--size-ratio));
+  --size-nano: calc(var(--size-micro) / var(--size-ratio));
+  --size-micro: calc(var(--size-small) / var(--size-ratio));
+  --size-small: calc(var(--size-base) / var(--size-ratio));
+  --size-base: 1rem;
+  --size-large: calc(var(--size-base) * var(--size-ratio));
+  --size-mega: calc(var(--size-large) * var(--size-ratio));
+  --size-giga: calc(var(--size-mega) * var(--size-ratio));
+  --size-tera: calc(var(--size-giga) * var(--size-ratio));
+
+  background-color: var(--theme-surface);
+  color: var(--theme-on-surface);
+  font-family: "Courier New", monospace;
+  line-height: 1.5;
+}
+
+:root,
+/* aka: [data-theme="light"] */
+:root[data-t="l"] {
+  /* shootout to https://randoma11y.com/ for helping me pick the colors. */
+  --theme-surface: color(display-p3 0.995 0.996 0.871);
+  --theme-on-surface: color(display-p3 0.259 0.249 0.648);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --theme-surface: color(display-p3 0.06 0.019 0.102);
+    --theme-on-surface: color(display-p3 0.999 0.985 0.987);
+  }
+}
+
+/* aka: [data-theme="dark"] */
+:root[data-t="d"] {
+  --theme-surface: color(display-p3 0.06 0.019 0.102);
+  --theme-on-surface: color(display-p3 0.999 0.985 0.987);
+}
+
+html,
+body {
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  box-sizing: border-box;
+  gap: var(--size-mega);
+  padding-block: var(--size-mega);
+}
+
+p {
+  margin-block-end: 2em;
+}
+
+a {
+  color: var(--theme-on-surface);
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+  text-decoration: underline solid var(--theme-on-surface) 2px;
+
+  /* WCAG 2.5.8 (AA, WCAG 2.2): minimum 24×24px touch target. padding-block expands
+     the hit area on each line fragment, so multi-line links are covered too. */
+  padding-block: max(0px, calc((24px - 1em) / 2));
+  padding-inline: var(--size-nano);
+  margin-inline: calc(-1 * var(--size-nano));
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: var(--theme-on-surface);
+    color: var(--theme-surface);
+    /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+    text-decoration-color: var(--theme-surface);
+  }
+}
+
+main {
+  flex: 1;
+}

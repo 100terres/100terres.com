@@ -1,0 +1,37 @@
+---
+import Container from "~/components/Container.astro";
+import Typography from "~/components/Typography.astro";
+import ThemeSwitch from "~/components/ThemeSwitch.astro";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="component-footer">
+  <Container class="layout">
+    <ThemeSwitch />
+
+    <Typography>
+      This site is build, deployed, and hosted from my homelab. I'm slowly
+      moving away from big tech companies for my side projects. I used to use
+      the services from one of them to host static websites, and route the
+      traffic to my homelab, but I'm now renting a VPS in Iceland, and using it
+      as a reverse proxy in front of my homelab.
+    </Typography>
+
+    <Typography>&copy; {year} Gab</Typography>
+  </Container>
+</footer>
+
+<style is:global>
+  .component-footer {
+    .layout {
+      display: grid;
+      row-gap: var(--size-small);
+    }
+
+    p {
+      font-size: 0.75rem;
+      margin: 0;
+    }
+  }
+</style>

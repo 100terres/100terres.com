@@ -1,0 +1,20 @@
+---
+import rawTheme from "./theme.css?raw";
+---
+
+<!-- Inline to avoid FOUC. -->
+<script is:inline>
+  // aka: getThemePreference
+  window.t = () => {
+    const preference = localStorage?.getItem("t");
+
+    // aka: system | light | dark
+    return ["s", "l", "d"].find((x) => x === preference) ?? "s";
+  };
+
+  // aka: data-theme
+  document.documentElement.setAttribute("data-t", window.t());
+</script>
+
+<!-- Inline critical CSS -->
+<style is:inline set:html={rawTheme}></style>

@@ -1,0 +1,97 @@
+---
+import RootLayout from "~/layouts/RootLayout.astro";
+import Typography from "~/components/Typography.astro";
+import ImageInline from "~/components/ImageInline.astro";
+import avatar from "~/assets/avatar.webp";
+---
+
+<RootLayout class="page-index" title="Gab's Website">
+  <ImageInline
+    alt="Gab's face."
+    class="profile"
+    format="webp"
+    height={175}
+    quality={35}
+    src={avatar}
+    width={175}
+  />
+
+  <Typography class="heading" variant="h1">
+    I'm Gab, and I like great UX.
+  </Typography>
+
+  <div class="content">
+    <Typography>
+      I'm a TypeScript enthusiast with over 10 years of experience in React. I'm
+      all about creating great DevEx without compromising on UX. It helps when
+      we avoid sending a 20 megabytes React SPA to people with an average mobile
+      phone on a poor internet connection. Having a good developer experience on
+      a powerful Macbook Pro shouldn't result in a degraded user experience for
+      the people reaching a website. I highly recommend Alex Russell's series
+      <a href="https://infrequently.org/series/performance-inequality/">
+        The Performance Inequality Gap
+        {/* eslint-disable-next-line prettier/prettier */}
+      </a>, which he updates yearly with new device and network baselines.
+    </Typography>
+
+    <Typography>
+      I'm having fun{" "}
+      <a href="https://codeberg.org/100terres/selfhost">
+        self-hosting tools and services
+      </a>{" "}
+      on my homelab. My current side projects' tech stack includes: TypeScript,
+      Astro, Docker, Pangolin, Dagu, and Codeberg. I would like to eventually
+      migrate my Docker setup to Kubernetes, we'll see if I find the time for
+      this!
+    </Typography>
+
+    <Typography>
+      I'm also maintaining{" "}
+      <a href="https://github.com/hello-pangea/dnd">@hello-pangea/dnd</a>, an
+      open source project I created by forking react-beautiful-dnd from
+      Atlassian which now has 3,000,000+ weekly downloads on NPM. You can read
+      more about my motivations behind{" "}
+      <a href="https://dev.to/100terres/rbd-is-dead-long-life-rfd-1n9e">
+        this adventure here
+        {/* eslint-disable-next-line prettier/prettier */}
+      </a>.
+    </Typography>
+  </div>
+</RootLayout>
+
+<style is:global>
+  .page-index {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--size-large);
+
+    .profile {
+      border: var(--size-nano) solid var(--theme-on-surface);
+      background-color: var(--theme-on-surface);
+    }
+
+    .heading {
+      align-self: center;
+      margin: 0;
+    }
+
+    .content {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+
+      .content {
+        grid-column: 1;
+      }
+    }
+  }
+</style>

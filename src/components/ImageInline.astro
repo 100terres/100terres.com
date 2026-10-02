@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata, ImageOutputFormat, ImageQuality } from "astro";
+
+interface Props {
+  alt: string;
+  class?: string;
+  format: ImageOutputFormat;
+  height: number;
+  quality: ImageQuality;
+  src: ImageMetadata;
+  width: number;
+}
+
+const {
+  alt,
+  class: className,
+  format,
+  height,
+  quality,
+  src,
+  width,
+} = Astro.props;
+---
+
+<Image
+  data-inline
+  alt={alt}
+  class={className}
+  format={format}
+  height={height}
+  quality={quality}
+  src={src}
+  width={width}
+/>

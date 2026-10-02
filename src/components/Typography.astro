@@ -1,0 +1,17 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Variant = "p" | "h1" | "h2" | "h3";
+
+type Props<Tag extends Variant = "p"> = HTMLAttributes<Tag> & {
+  variant?: Tag;
+};
+
+const { variant = "p", ...rest } = Astro.props;
+
+const Component = variant;
+---
+
+<Component {...rest}>
+  <slot />
+</Component>

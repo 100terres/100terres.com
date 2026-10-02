@@ -1,0 +1,110 @@
+<div class="component-theme-switch">
+  <fieldset>
+    <legend>Theme preference:</legend>
+    <label>
+      <input type="radio" name="t" value="s" />
+      System
+    </label>
+    <label>
+      <input type="radio" name="t" value="l" />
+      Light
+    </label>
+    <label>
+      <input type="radio" name="t" value="d" />
+      Dark
+    </label>
+  </fieldset>
+</div>
+
+<style is:global>
+  .component-theme-switch {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    align-items: center;
+    gap: 0.5em;
+
+    fieldset {
+      display: contents;
+
+      legend {
+        padding: 0;
+        margin: 0;
+      }
+
+      label {
+        position: relative;
+        z-index: 1;
+        cursor: pointer;
+        user-select: none;
+        display: block;
+
+        &::before {
+          content: "[ ";
+        }
+
+        &::after {
+          content: " ]";
+        }
+      }
+
+      input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        appearance: none;
+        cursor: pointer;
+        border: none;
+        background-color: transparent;
+      }
+
+      label {
+        &:has(:checked),
+        &:hover {
+          background-color: var(--theme-on-surface);
+          color: var(--theme-surface);
+        }
+        &:has(:focus-visible) {
+          outline: 2px solid currentColor;
+          outline-offset: 2px;
+        }
+      }
+    }
+
+    @media (max-width: 600px) {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(3, max-content);
+
+      row-gap: var(--size-pico);
+
+      legend {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+</style>
+
+<script>
+  import { $$$querySelector } from "~/utils/dom";
+
+  const el = $$$querySelector<HTMLInputElement>(
+    document,
+    `.component-theme-switch input[value="${window.t()}"]`,
+  );
+
+  if (el) {
+    el.checked = true;
+  }
+
+  $$$querySelector<HTMLDivElement>(
+    document,
+    ".component-theme-switch",
+  )!.addEventListener("change", (e) => {
+    const { value } = e.target as HTMLInputElement;
+    document.documentElement.setAttribute("data-t", value);
+    localStorage.setItem("t", value);
+  });
+</script>

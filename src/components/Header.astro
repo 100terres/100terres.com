@@ -1,0 +1,83 @@
+---
+import Container from "~/components/Container.astro";
+import Typography from "~/components/Typography.astro";
+---
+
+<header class="component-header">
+  <Container class="layout">
+    <div class="brand">
+      <a href="/" class="title">
+        100terres
+      </a>
+      <Typography class="tagline">Software Developer</Typography>
+    </div>
+
+    <nav>
+      <ul>
+        <li>
+          <a href="https://mastodon.100terres.com/@gab" target="_blank">
+            Mastodon
+          </a>
+        </li>
+        <li>
+          <a href="https://codeberg.org/100terres" target="_blank">
+            Codeberg
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/100terres" target="_blank">
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </Container>
+</header>
+
+<style is:global>
+  .component-header {
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 0;
+    }
+
+    .brand {
+      .title {
+        font-size: var(--size-large);
+        font-weight: 700;
+      }
+
+      .tagline {
+        margin: 0;
+      }
+    }
+
+    nav {
+      justify-self: end;
+    }
+
+    ul {
+      display: flex;
+      padding: 0;
+      margin: 0;
+      align-items: center;
+      gap: calc(var(--size-micro) * 2);
+    }
+
+    li {
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        justify-self: start;
+      }
+    }
+  }
+</style>

@@ -1,0 +1,21 @@
+{
+  "css.validate": false,
+  "eslint.probe": [
+    "html",
+    "javascript",
+    "javascriptreact",
+    "astro",
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.validate": [
+    "html",
+    "javascript",
+    "javascriptreact",
+    "astro",
+    "typescript",
+    "typescriptreact"
+  ],
+  "stylelint.packageManager": "pnpm",
+  "stylelint.validate": ["css"]
+}
