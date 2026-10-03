@@ -15,7 +15,10 @@
 
   background-color: var(--theme-surface);
   color: var(--theme-on-surface);
-  font-family: "Courier New", monospace;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
   line-height: 1.5;
 }
 
