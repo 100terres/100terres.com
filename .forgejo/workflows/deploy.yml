@@ -1,0 +1,23 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-production:
+    name: Deploy Production
+    runs-on: docker
+    timeout-minutes: 0.25
+    steps:
+      - name: Deploy Production
+        run: |
+          BODY='{}'
+          SIGNATURE=$(printf '%s' "$BODY" | openssl dgst -sha256 -hmac "${{ secrets.DEPLOY_WEBHOOK_HMAC_SECRET }}" -hex | sed 's/^.* //')
+          echo ::add-mask::$SIGNATURE
+          curl "${{ secrets.DEPLOY_WEBHOOK_URL }}" \
+            -f \
+            --user ${{ secrets.DEPLOY_WEBHOOK_USER_PASSWORD }} \
+            -H "Content-Type: application/json" \
+            -H "X-Dagu-Signature: sha256=$SIGNATURE" \
+            -X POST \
+            -d "$BODY"
