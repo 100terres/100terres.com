@@ -1,3 +1,3 @@
 # 100terres.com
 
-This is my personal website.
+My professional website as software developer.
