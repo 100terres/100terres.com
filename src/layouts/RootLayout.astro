@@ -5,23 +5,26 @@ import Footer from "~/components/Footer.astro";
 import Header from "~/components/Header.astro";
 import ThemeCriticalSetup from "~/theme/ThemeCriticalSetup.astro";
 import faviconRaw from "~/assets/favicon.svg?raw";
+import { getCurrentLocale } from "~/utils/i18n";
 
+const currentLocale = getCurrentLocale(Astro);
 const favicon = `data:image/svg+xml,${encodeURIComponent(faviconRaw)}`;
 
 export interface Props extends HTMLAttributes<"div"> {
   title: string;
+  description: string;
 }
 
-const { title, ...rest } = Astro.props;
+const { title, description, ...rest } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={currentLocale}>
   <head>
     <ThemeCriticalSetup />
 
     <meta charset="UTF-8" />
-    <meta name="description" content="Gab's professional website." />
+    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" href={favicon} />
 

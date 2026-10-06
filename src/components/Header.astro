@@ -1,15 +1,41 @@
 ---
 import Container from "~/components/Container.astro";
 import Typography from "~/components/Typography.astro";
+import { getTranslation } from "~/utils/i18n";
+
+const translations = {
+  en: {
+    brand: {
+      url: "/",
+      tagline: "Software Developer",
+    },
+    langSwitch: {
+      url: "/fr",
+      label: "En\u00A0français",
+    },
+  },
+  fr: {
+    brand: {
+      url: "/fr",
+      tagline: "Développeur logiciel",
+    },
+    langSwitch: {
+      url: "/",
+      label: "In\u00A0English",
+    },
+  },
+} as const;
+
+const { t } = getTranslation(Astro, translations);
 ---
 
 <header class="component-header">
   <Container class="layout">
     <div class="brand">
-      <a href="/" class="title">
+      <a href={t.brand.url} class="title">
         100terres
       </a>
-      <Typography class="tagline">Software Developer</Typography>
+      <Typography class="tagline">{t.brand.tagline}</Typography>
     </div>
 
     <nav>
@@ -28,6 +54,9 @@ import Typography from "~/components/Typography.astro";
           <a href="https://github.com/100terres" target="_blank">
             GitHub
           </a>
+        </li>
+        <li>
+          <a href={t.langSwitch.url}>{t.langSwitch.label}</a>
         </li>
       </ul>
     </nav>

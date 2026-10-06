@@ -1,0 +1,51 @@
+---
+// import type { astroHTML } from "astro/astro-jsx";
+import type { MarkdownInstance } from "astro";
+
+import Container from "~/components/Container.astro";
+import Typography from "~/components/Typography.astro";
+import ThemeSwitch from "~/components/ThemeSwitch.astro";
+
+import { getCurrentLocale } from "~/utils/i18n";
+
+const content = import.meta.glob<MarkdownInstance<Record<string, never>>>(
+  "./FooterContent-*.md",
+  {
+    eager: true,
+  },
+);
+
+const contentPath = `./FooterContent-${getCurrentLocale(Astro)}.md`;
+const contentImport = content[contentPath];
+
+if (!contentImport) {
+  throw new Error(`Missing ${contentPath} file.`);
+}
+
+const { Content } = contentImport;
+const year = new Date().getFullYear();
+---
+
+<footer class="component-footer">
+  <Container class="layout">
+    <ThemeSwitch />
+
+    <Content />
+
+    <Typography>&copy; {year} Gab</Typography>
+  </Container>
+</footer>
+
+<style is:global>
+  .component-footer {
+    .layout {
+      display: grid;
+      row-gap: var(--size-small);
+    }
+
+    p {
+      font-size: 0.75rem;
+      margin: 0;
+    }
+  }
+</style>

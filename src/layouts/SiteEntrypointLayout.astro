@@ -1,0 +1,86 @@
+---
+import type { MarkdownLayoutProps } from "astro";
+
+import RootLayout from "~/layouts/RootLayout.astro";
+import Typography from "~/components/Typography.astro";
+import ImageInline from "~/components/ImageInline.astro";
+import avatar from "~/assets/avatar.webp";
+import { getTranslation } from "~/utils/i18n";
+
+const translations = {
+  en: {
+    title: "Gab, a dev",
+    description: "Gab's professional website.",
+  },
+  fr: {
+    title: "Gab, un dev",
+    description: "Le site web professionnel de Gab.",
+  },
+} as const;
+
+const { t } = getTranslation(Astro, translations);
+
+type Props = MarkdownLayoutProps<{
+  title: string;
+  imageAlt: string;
+}>;
+
+const { frontmatter } = Astro.props;
+---
+
+<RootLayout class="page-index" description={t.description} title={t.title}>
+  <ImageInline
+    alt={frontmatter.imageAlt}
+    class="profile"
+    format="webp"
+    height={175}
+    quality={35}
+    src={avatar}
+    width={175}
+  />
+
+  <Typography class="heading" variant="h1">
+    {frontmatter.title}
+  </Typography>
+
+  <div class="content">
+    <slot />
+  </div>
+</RootLayout>
+
+<style is:global>
+  .page-index {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--size-large);
+
+    .profile {
+      border: var(--size-nano) solid var(--theme-on-surface);
+      background-color: var(--theme-on-surface);
+    }
+
+    .heading {
+      align-self: center;
+      margin: 0;
+    }
+
+    .content {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+
+      .content {
+        grid-column: 1;
+      }
+    }
+  }
+</style>

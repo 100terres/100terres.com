@@ -1,17 +1,38 @@
+---
+import { getTranslation } from "~/utils/i18n";
+
+const translations = {
+  en: {
+    legend: "Theme:",
+    system: "Auto",
+    light: "Light",
+    dark: "Dark",
+  },
+  fr: {
+    legend: "Thème\u00A0:",
+    system: "Auto",
+    light: "Clair",
+    dark: "Sombre",
+  },
+} as const;
+
+const { t } = getTranslation(Astro, translations);
+---
+
 <div class="component-theme-switch">
   <fieldset>
-    <legend>Theme preference:</legend>
+    <legend>{t.legend}</legend>
     <label>
       <input type="radio" name="t" value="s" />
-      System
+      {t.system}
     </label>
     <label>
       <input type="radio" name="t" value="l" />
-      Light
+      {t.light}
     </label>
     <label>
       <input type="radio" name="t" value="d" />
-      Dark
+      {t.dark}
     </label>
   </fieldset>
 </div>
