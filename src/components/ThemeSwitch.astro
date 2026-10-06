@@ -17,6 +17,13 @@
 </div>
 
 <style is:global>
+  :root[data-t="s"] label:has([value="s"]),
+  :root[data-t="l"] label:has([value="l"]),
+  :root[data-t="d"] label:has([value="d"]) {
+    background-color: var(--theme-on-surface);
+    color: var(--theme-surface);
+  }
+
   .component-theme-switch {
     display: grid;
     grid-auto-flow: column;
