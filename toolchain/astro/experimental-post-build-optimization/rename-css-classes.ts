@@ -83,9 +83,12 @@ function inlineHelperCalls(
   });
   const output = new MagicString(source);
 
-  // 1. Collect the helper declarations, and every call indexed by its callee.
+  // 1. Collect the helper declarations, every call indexed by its callee, and
+  // the calls whose callee is the helper definition itself (the minifier
+  // inlines a single-use helper into its call site).
   const helpers: [acorn.VariableDeclaration, acorn.VariableDeclarator][] = [];
   const callsByCallee = new Map<acorn.Node, acorn.CallExpression>();
+  const directCalls: acorn.CallExpression[] = [];
   walkSimple(ast, {
     VariableDeclaration(declaration) {
       for (const declarator of declaration.declarations) {
@@ -96,6 +99,9 @@ function inlineHelperCalls(
     },
     CallExpression(call) {
       callsByCallee.set(call.callee, call);
+      if (isHelperDefinition(call.callee as acorn.Expression)) {
+        directCalls.push(call);
+      }
     },
   });
 
@@ -113,6 +119,10 @@ function inlineHelperCalls(
     }
 
     removeDeclarator(output, declaration, declarator);
+  }
+
+  for (const call of directCalls) {
+    inlineCall(output, source, call, renameMap);
   }
 
   const result = output.toString();
