@@ -1,0 +1,19 @@
+---
+import { getDateParts } from "./getDateParts";
+
+interface Props {
+  date: Date;
+}
+
+const { date } = Astro.props;
+const { weekday, day, month, year, hour, minute } = getDateParts(date, "en-CA");
+
+// Following Government of Canada guidelines
+// - https://our-languages.canada.ca/en/writing-tips-plus/date-how-to-write-the-date-correctly
+// - https://our-languages.canada.ca/en/writing-tips-plus/time-of-day
+---
+
+This website was generated on{" "}
+<time datetime={date.toISOString()}>
+  {weekday}, {month} {day}, {year}, at {hour}:{minute}&nbsp;UTC
+</time>

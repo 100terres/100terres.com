@@ -1,38 +1,34 @@
 ---
-// import type { astroHTML } from "astro/astro-jsx";
-import type { MarkdownInstance } from "astro";
-
 import Container from "~/components/Container.astro";
 import Typography from "~/components/Typography.astro";
 import ThemeSwitch from "~/components/ThemeSwitch.astro";
 
 import { getCurrentLocale } from "~/utils/i18n";
 
-const content = import.meta.glob<MarkdownInstance<Record<string, never>>>(
-  "./FooterContent-*.md",
-  {
-    eager: true,
-  },
-);
+import { Content as FooterContentEn } from "./FooterContent-en.md";
+import { Content as FooterContentFr } from "./FooterContent-fr.md";
+import GeneratedAtEn from "./GeneratedAt-en.astro";
+import GeneratedAtFr from "./GeneratedAt-fr.astro";
 
-const contentPath = `./FooterContent-${getCurrentLocale(Astro)}.md`;
-const contentImport = content[contentPath];
-
-if (!contentImport) {
-  throw new Error(`Missing ${contentPath} file.`);
-}
-
-const { Content } = contentImport;
-const year = new Date().getFullYear();
+const date = new Date(import.meta.env.BUILD_TIME);
+const currentLocale = getCurrentLocale(Astro);
 ---
 
 <footer class="component-footer">
   <Container class="layout">
     <ThemeSwitch />
 
-    <Content />
+    {currentLocale === "fr" ? <FooterContentFr /> : <FooterContentEn />}
 
-    <Typography>&copy; {year} Gab</Typography>
+    <Typography>
+      {currentLocale === "fr" ? (
+        <GeneratedAtFr date={date} />
+      ) : (
+        <GeneratedAtEn date={date} />
+      )}
+    </Typography>
+
+    <Typography>&copy; {date.getUTCFullYear()} Gab</Typography>
   </Container>
 </footer>
 

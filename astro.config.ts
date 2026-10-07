@@ -10,6 +10,9 @@ export default defineConfig({
     csp: false, // handled by experimentalPostBuildOptimization
   },
   vite: {
+    define: {
+      "import.meta.env.BUILD_TIME": JSON.stringify(new Date().toISOString()),
+    },
     build: {
       minify: true,
     },

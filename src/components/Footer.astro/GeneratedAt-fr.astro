@@ -1,0 +1,18 @@
+---
+import { getDateParts } from "./getDateParts";
+
+interface Props {
+  date: Date;
+}
+
+const { date } = Astro.props;
+const { weekday, day, month, year, hour, minute } = getDateParts(date, "fr-CA");
+
+// Following OQLF guidelines
+// - https://vitrinelinguistique.oqlf.gouv.qc.ca/21242/la-typographie/nombres/ecriture-des-dates-et-des-heures-dans-les-lettres-et-les-textes-courants
+// - https://vitrinelinguistique.oqlf.gouv.qc.ca/21516/la-typographie/nombres/ecriture-des-heures
+// - https://vitrinelinguistique.oqlf.gouv.qc.ca/24271/les-abreviations-et-les-symboles/les-abreviations/cas-particuliers-dabreviations/abreviation-de-ladjectif-numeral-ordinal
+---
+
+Ce site web a été généré le <!-- prettier-ignore -->
+<time datetime={date.toISOString()}>{weekday} {day}{day === "1" && <sup>er</sup>}&nbsp;{month} {year} à {Number(hour)}&nbsp;h&nbsp;{minute}&nbsp;UTC</time>
