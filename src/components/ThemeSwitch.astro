@@ -38,13 +38,6 @@ const { t } = getTranslation(Astro, translations);
 </div>
 
 <style is:global>
-  :root[data-t="s"] label:has([value="s"]),
-  :root[data-t="l"] label:has([value="l"]),
-  :root[data-t="d"] label:has([value="d"]) {
-    background-color: var(--theme-on-surface);
-    color: var(--theme-surface);
-  }
-
   .component-theme-switch {
     display: grid;
     grid-auto-flow: column;
@@ -53,6 +46,7 @@ const { t } = getTranslation(Astro, translations);
     gap: 0.5em;
 
     fieldset {
+      /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- partial support only concerns a11y of buttons/tables, not fieldset */
       display: contents;
 
       legend {
@@ -74,6 +68,17 @@ const { t } = getTranslation(Astro, translations);
         &::after {
           content: " ]";
         }
+
+        &:has(:checked),
+        &:hover {
+          background-color: var(--theme-on-surface);
+          color: var(--theme-surface);
+        }
+
+        &:has(:focus-visible) {
+          outline: 2px solid currentcolor;
+          outline-offset: 2px;
+        }
       }
 
       input {
@@ -88,30 +93,24 @@ const { t } = getTranslation(Astro, translations);
         border: none;
         background-color: transparent;
       }
-
-      label {
-        &:has(:checked),
-        &:hover {
-          background-color: var(--theme-on-surface);
-          color: var(--theme-surface);
-        }
-        &:has(:focus-visible) {
-          outline: 2px solid currentColor;
-          outline-offset: 2px;
-        }
-      }
     }
 
-    @media (max-width: 600px) {
+    @media (width <= 600px) {
       grid-auto-flow: row;
       grid-template-columns: repeat(3, max-content);
-
       row-gap: var(--size-pico);
 
       legend {
         grid-column: 1 / -1;
       }
     }
+  }
+
+  :root[data-t="s"] label:has([value="s"]),
+  :root[data-t="l"] label:has([value="l"]),
+  :root[data-t="d"] label:has([value="d"]) {
+    background-color: var(--theme-on-surface);
+    color: var(--theme-surface);
   }
 </style>
 

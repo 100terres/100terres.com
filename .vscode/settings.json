@@ -17,5 +17,5 @@
     "typescriptreact"
   ],
   "stylelint.packageManager": "pnpm",
-  "stylelint.validate": ["css"]
+  "stylelint.validate": ["css", "astro"]
 }

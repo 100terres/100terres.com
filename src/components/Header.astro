@@ -93,7 +93,7 @@ const { t } = getTranslation(Astro, translations);
       display: block;
     }
 
-    @media (max-width: 600px) {
+    @media (width <= 600px) {
       .layout {
         grid-template-columns: 1fr;
       }

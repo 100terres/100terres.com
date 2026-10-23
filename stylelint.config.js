@@ -15,4 +15,13 @@ export default {
       },
     ],
   },
+  overrides: [
+    {
+      // The inline <style> is filled at build time via `set:html`.
+      files: ["src/theme/ThemeCriticalSetup.astro"],
+      rules: {
+        "no-empty-source": null,
+      },
+    },
+  ],
 };
