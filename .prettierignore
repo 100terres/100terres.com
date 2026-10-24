@@ -6,3 +6,7 @@ dist/
 
 # dependencies
 node_modules/
+
+# lockfiles
+mise.lock
+pnpm-lock.yaml

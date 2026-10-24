@@ -1,20 +1,17 @@
 {
   "css.validate": false,
-  "eslint.probe": [
-    "html",
-    "javascript",
-    "javascriptreact",
-    "astro",
-    "typescript",
-    "typescriptreact"
-  ],
   "eslint.validate": [
     "html",
     "javascript",
     "javascriptreact",
     "astro",
     "typescript",
-    "typescriptreact"
+    "typescriptreact",
+    "json",
+    "jsonc",
+    "markdown",
+    "toml",
+    "yaml"
   ],
   "stylelint.packageManager": "pnpm",
   "stylelint.validate": ["css", "astro"]

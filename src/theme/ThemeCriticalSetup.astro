@@ -6,10 +6,14 @@ import rawTheme from "./theme.css?raw";
 <script is:inline>
   // aka: getThemePreference
   window.t = () => {
-    const preference = localStorage?.getItem("t");
-
-    // aka: system | light | dark
-    return ["s", "l", "d"].find((x) => x === preference) ?? "s";
+    try {
+      const preference = localStorage.getItem("t");
+      // aka: system | light | dark
+      return ["s", "l", "d"].find((x) => x === preference) ?? "s";
+    } catch {
+      // Storage is blocked (e.g. site data disabled), fall back to the default.
+      return "s";
+    }
   };
 
   // aka: data-theme
