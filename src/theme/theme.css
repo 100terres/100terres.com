@@ -1,6 +1,6 @@
 :root {
   color-scheme: light dark;
-  font-size: 16px;
+  font-size: 100%;
 
   --size-ratio: 1.618; /* Golden ratio */
   --size-pico: calc(var(--size-nano) / var(--size-ratio));

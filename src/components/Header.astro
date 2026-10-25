@@ -61,7 +61,8 @@ const { t } = getTranslation(Astro, translations);
   .component-header {
     .layout {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: auto auto;
+      justify-content: space-between;
       align-items: center;
       gap: 0;
     }
@@ -82,11 +83,12 @@ const { t } = getTranslation(Astro, translations);
     }
 
     ul {
-      display: flex;
-      padding: 0;
-      margin: 0;
       align-items: center;
-      gap: calc(var(--size-micro) * 2);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 calc(var(--size-micro) * 2);
+      margin: 0;
+      padding: 0;
     }
 
     li {
